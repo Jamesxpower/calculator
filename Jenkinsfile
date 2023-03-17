@@ -1,6 +1,11 @@
 pipeline {
  agent any
  stages {
+		stage("Static code analysis") {
+			 steps {
+				sh "./gradlew checkstyleMain"
+			 }
+		} 
 		stage("Code coverage") {
 			 steps {
 				 sh "./gradlew jacocoTestReport"
