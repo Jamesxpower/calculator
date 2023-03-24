@@ -35,12 +35,16 @@ pipeline {
 				sh "./gradlew test"
 			}
 		}
+		 stage("Send mail"){
+			post {
+				 always {
+					 mail to: 'jamesxpower@gmail.com',
+					 subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
+					 body: "Your build completed, please check: ${env.BUILD_URL}"
+				 }
+			}
+			 
+		 }
+		 
 	}
-}
-post {
-	 always {
-		 mail to: 'jamesxpower@gmail.com',
-		 subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
-		 body: "Your build completed, please check: ${env.BUILD_URL}"
-	 }
 }
