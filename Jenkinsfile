@@ -48,6 +48,11 @@ post {
 				sh "docker build -t leszko/calculator ."
 			}
 		}
+	 	stage("Docker push"){
+			steps{
+				sh "docker push leszko/calculator"
+			}
+		} 
 		stage("Unit test") {
 			 steps {
 				sh "./gradlew test"
