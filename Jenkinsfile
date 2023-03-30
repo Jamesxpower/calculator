@@ -9,6 +9,9 @@ post {
 		 subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
 		 body: "Your build completed, please check: ${env.BUILD_URL}"
 	 }
+	always{
+		sh "docker stop calculator"
+	}
 }
 	
  stages {
