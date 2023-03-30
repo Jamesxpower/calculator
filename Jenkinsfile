@@ -38,6 +38,16 @@ post {
 				sh "./gradlew compileJava"
 			 }
 		}
+	 	stage("Package"){
+			steps{
+				sh "./gradlew build"
+			}
+		} 
+	 	stage("Docker build"){
+			steps{
+				sh "docker build -t leszko/calculator ."
+			}
+		}
 		stage("Unit test") {
 			 steps {
 				sh "./gradlew test"
