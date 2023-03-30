@@ -38,6 +38,11 @@ post {
 				sh "./gradlew compileJava"
 			 }
 		}
+		stage("Unit test") {
+			 steps {
+				sh "./gradlew test"
+			}
+		}
 	 	stage("Package"){
 			steps{
 				sh "./gradlew build"
@@ -53,16 +58,16 @@ post {
 				sh "docker push leszko/calculator"
 			}
 		} 
-		stage("Unit test") {
-			 steps {
-				sh "./gradlew test"
-			}
-		}
 	 	stage("Deploy to staging"){
 			steps{
 				sh "docker run -d --rm -p 8765:8080 --name calculator leszko/calculator"
 			}
 		}
-		 
+	 	stage("Acceptance test"){
+			steps{
+				sleep 60
+				sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
+			}
+		}
 	}
 }
